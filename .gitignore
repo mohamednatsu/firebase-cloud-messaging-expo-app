@@ -9,7 +9,6 @@ dist/
 web-build/
 expo-env.d.ts
 
-./react-expo-fcm-firebase-adminsdk-7l3y7-987cf0d64b.json
 
 # Native
 *.orig.*
