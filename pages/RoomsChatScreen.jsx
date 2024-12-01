@@ -4,7 +4,7 @@ import * as Notifications from 'expo-notifications';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 import * as Device from 'expo-device';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { arrayRemove, collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { db } from '../db/config';
 
 
@@ -101,6 +101,24 @@ export default function RoomsChatScreen({navigation}) {
         navigation.navigate('ChatScreen', { channelId, senderId: userToken, channelNameUser: Chn });
     };
 
+    const unSubscripeUser = async (channelId, tokenToRemove) => {
+        try {
+            // Reference to the document that contains the tokens array
+            const channelDocRef = doc(db, 'channels', channelId);
+    
+            // Update the document to remove the specific token
+            await updateDoc(channelDocRef, {
+                userTokens: arrayRemove(tokenToRemove),
+            });
+
+            fetchUserChannels(tokenToRemove)
+    
+            console.log(`Token ${tokenToRemove} successfully removed from channel ${channelId}`);
+        } catch (error) {
+            console.error('Error removing token from Firestore:', error);
+        }
+    }
+
     return (
         <View style={styels.container}>
             <Text style={styels.header}>
@@ -121,10 +139,10 @@ export default function RoomsChatScreen({navigation}) {
                                     <Text style={styels.channelText}>{item.channelName}</Text>
                                 </Pressable>
 
-                                <View style={{ margin: 20, justifyContent: 'center', alignItems: 'center' }}>
+                                <Pressable onPress={() => unSubscripeUser(item.id, userToken)} style={{ margin: 20, justifyContent: 'center', alignItems: 'center' }}>
                                     <Text style={{ backgroundColor: "black", color: 'white', padding: 10, borderRadius: 10 }}>Unsubscripe</Text>
                                     <FontAwesome name="minus" size={24} color="black" />
-                                </View>
+                                </Pressable>
                             </View>
                         )}
                         ListEmptyComponent={<Text>No channels found for this token.</Text>}
