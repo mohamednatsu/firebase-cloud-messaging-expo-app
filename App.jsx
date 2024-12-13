@@ -7,16 +7,40 @@ import ChannelsScreen from './pages/ChannelsScreen';
 import NotificationsScreen from './pages/NotificationsScreen';
 import RoomsChatScreen from './pages/RoomsChatScreen';
 import ChatScreen from './pages/ChatScreen';
+import SignUpScreen from './pages/SignUpScreen';
+import AuthenticateScreen from './pages/AuthenticateScreen';
+import LoginScreen from './pages/LoginScreen';
 
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Auth">
         <Stack.Screen
           name="Home"
           component={HomeScreen}
+        />
+        <Stack.Screen
+          name="Auth"
+          options={{
+            headerShown: false
+          }}
+          component={AuthenticateScreen}
+        />
+        <Stack.Screen
+          name="SignUp"
+          options={{
+            headerShown: false
+          }}
+          component={SignUpScreen}
+        />
+        <Stack.Screen
+          name="Login"
+          options={{
+            headerShown: false
+          }}
+          component={LoginScreen}
         />
         <Stack.Screen
           name="Channels"
@@ -37,7 +61,6 @@ const App = () => {
         <Stack.Screen
           name="ChatScreen"
           component={ChatScreen}
-          
         />
       </Stack.Navigator>
     </NavigationContainer>

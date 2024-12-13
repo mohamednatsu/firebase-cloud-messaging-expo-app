@@ -29,6 +29,8 @@ export default function ChannelsScreen() {
     const [isSubscribed, setIsSubscribed] = useState(false);
 
 
+
+    // here we can get all the data channels and subscribe
     let getData = async () => {
         let data = [];
 
@@ -80,9 +82,6 @@ export default function ChannelsScreen() {
             console.error("Error registering for notifications:", error);
             setExpoPushToken(`${error}`);
         });
-
-
-
 
     }, [])
 

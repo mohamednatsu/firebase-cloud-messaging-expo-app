@@ -1,8 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
-import { Text, View, FlatList, Platform, Button, StyleSheet, Pressable } from 'react-native';
+import React, { useState } from "react";
+import { View, TextInput, Button, Text, StyleSheet, Pressable } from "react-native";
+import { logout, signIn, signUp } from "../auth/authenticate";
 
+const AuthenticateScreen = ({navigation}) => {
 
-export default function HomeScreen({ navigation }) {
     return (
 
         <View style={styles.container}>
@@ -14,10 +15,10 @@ export default function HomeScreen({ navigation }) {
             <View style={styles.btn}>
 
 
-                <Pressable style={styles.button} onPress={() => navigation.navigate('Channels')}>
+                <Pressable style={styles.button} onPress={() => navigation.navigate('SignUp')}>
 
                     <Text style={{ textAlign: "center", color: "black" }}>
-                        Go to Channels
+                        Sign Up
                     </Text>
                 </Pressable>
             </View>
@@ -25,27 +26,19 @@ export default function HomeScreen({ navigation }) {
 
             <View style={styles.btn}>
 
-                <Pressable style={styles.button} onPress={() => navigation.navigate('Notifications')}>
+                <Pressable style={styles.button} onPress={() => navigation.navigate('Login')}>
 
                     <Text style={{ textAlign: "center", color: "black" }}>
-                        Go to Notifications
-                    </Text>
-                </Pressable>
-            </View>
-
-            <View style={styles.btn}>
-
-                <Pressable style={styles.button} onPress={() => navigation.navigate('RoomsChat')}>
-
-                    <Text style={{ textAlign: "center", color: "black" }}>
-                        Rooms Chat
+                        Login
                     </Text>
                 </Pressable>
             </View>
 
         </View>
     );
-}
+};
+
+export default AuthenticateScreen;
 
 
 const styles = StyleSheet.create({

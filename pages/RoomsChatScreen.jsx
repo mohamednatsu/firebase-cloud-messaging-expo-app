@@ -162,7 +162,6 @@ const styels = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         gap: 40,
-
         width: '100%',
 
     },
