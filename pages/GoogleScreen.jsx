@@ -6,7 +6,7 @@ import { auth } from "./firebaseConfig";
 
 export default function GoogleScreen() {
     const [request, response, promptAsync] = Google.useAuthRequest({
-        clientId: "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com",
+        clientId: "733382906897-61f0mn8dg2r07nn6i36ouj0fkohd4uf2.apps.googleusercontent.com",
         redirectUri: "https://auth.expo.io/@your-expo-username/your-expo-project-name",
     });
 
