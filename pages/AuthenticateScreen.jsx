@@ -34,6 +34,27 @@ const AuthenticateScreen = ({navigation}) => {
                 </Pressable>
             </View>
 
+            <View style={styles.btn}>
+
+                <Pressable style={styles.button} onPress={() => navigation.navigate('Phone')}>
+
+                    <Text style={{ textAlign: "center", color: "black" }}>
+                        Countinue With Phone Number
+                    </Text>
+                </Pressable>
+            </View>
+
+
+            <View style={styles.btn}>
+
+                <Pressable style={styles.button} onPress={() => navigation.navigate('Google')}>
+
+                    <Text style={{ textAlign: "center", color: "black" }}>
+                        Countinue With Google
+                    </Text>
+                </Pressable>
+            </View>
+
         </View>
     );
 };

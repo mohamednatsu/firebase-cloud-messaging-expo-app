@@ -90,7 +90,6 @@ export default function ChatScreen({ route, navigation }) {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const messageListener = useRef();
-
     
     const { channelId, senderId, channelNameUser  } = route.params; // Channel ID passed from the ChannelsListScreen
     navigation.setOptions({title: channelNameUser})

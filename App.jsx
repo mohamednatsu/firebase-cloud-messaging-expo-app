@@ -10,9 +10,10 @@ import ChatScreen from './pages/ChatScreen';
 import SignUpScreen from './pages/SignUpScreen';
 import AuthenticateScreen from './pages/AuthenticateScreen';
 import LoginScreen from './pages/LoginScreen';
+import GoogleScreen from './pages/GoogleScreen';
+import PhoneScreen from './pages/PhoneScreen';
 
 const Stack = createStackNavigator();
-
 const App = () => {
   return (
     <NavigationContainer>
@@ -20,6 +21,9 @@ const App = () => {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
+          options={{
+            headerShown: false,
+          }}
         />
         <Stack.Screen
           name="Auth"
@@ -34,6 +38,20 @@ const App = () => {
             headerShown: false
           }}
           component={SignUpScreen}
+        />
+        <Stack.Screen
+          name="Google"
+          options={{
+            headerShown: false
+          }}
+          component={GoogleScreen}
+        />
+        <Stack.Screen
+          name="Phone"
+          options={{
+            headerShown: false
+          }}
+          component={PhoneScreen}
         />
         <Stack.Screen
           name="Login"

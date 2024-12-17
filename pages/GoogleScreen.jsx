@@ -2,12 +2,12 @@ import React from "react";
 import { Button, View, Text } from "react-native";
 import * as Google from "expo-auth-session/providers/google";
 import { signInWithCredential, GoogleAuthProvider } from "firebase/auth";
-import { auth } from "./firebaseConfig";
+import { auth } from "../db/config";
 
 export default function GoogleScreen() {
     const [request, response, promptAsync] = Google.useAuthRequest({
-        clientId: "733382906897-61f0mn8dg2r07nn6i36ouj0fkohd4uf2.apps.googleusercontent.com",
-        redirectUri: "https://auth.expo.io/@your-expo-username/your-expo-project-name",
+        clientId: "320650251556-7ikdcho5ccf6q5p6vho6gd9khevsqlkb.apps.googleusercontent.com",
+        redirectUri: "https://auth.expo.io/@mohamedsalih/react-expo-push-notifications",
     });
 
     React.useEffect(() => {
@@ -23,7 +23,7 @@ export default function GoogleScreen() {
     }, [response]);
 
     return (
-        <View>
+        <View style={{flex: 1, marginTop: 30}}>
             <Button
                 disabled={!request}
                 title="Sign in with Google"

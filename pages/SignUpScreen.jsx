@@ -24,7 +24,6 @@ const SignUpScreen = ({navigation}) => {
             else {
                 Alert.alert("Error while creating");
             }
-
         }
     }
 

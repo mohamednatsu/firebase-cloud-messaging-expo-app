@@ -2,6 +2,8 @@
 import { getAuth } from "@firebase/auth";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getAnalytics, logEvent } from "firebase/analytics";
+// import analytics from "@react-native-firebase/analytics";
 
 
 const firebaseConfig = {
@@ -22,4 +24,18 @@ export const db = getFirestore(app);
 
 export const auth = getAuth(app);
 
+export const analytics = getAnalytics(app)
+export const logFirebaseEvent = (eventName, eventParams) => {
+    console.log("Test Event")
+    analytics().logLogin({
+        method: "emailAndPassword",
+    })
+    
+};
 
+
+
+// export const login = async () => {
+//     await analytics().logLogin({
+//         mathod: "emailAndPassword",
+//     })

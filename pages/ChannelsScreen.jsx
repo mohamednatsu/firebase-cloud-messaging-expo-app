@@ -5,6 +5,7 @@ import { arrayRemove, arrayUnion, collection, deleteDoc, doc, getDoc, getDocs, u
 import { Ionicons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import * as Notifications from 'expo-notifications';
+import { logFirebaseEvent } from "../db/config";
 
 import * as Device from 'expo-device';
 
@@ -68,7 +69,6 @@ export default function ChannelsScreen() {
 
     useEffect(() => {
 
-
         getData()
         getTokenDevice()
 
@@ -119,9 +119,17 @@ export default function ChannelsScreen() {
         getData()
     }
 
-    const subscripeChannel = (channelId, userToken) => {
+    const subscripeChannel = (channelId, userToken, channelName) => {
         Alert.alert("Subscripe channel")
         addUserTokenToChannel(channelId, userToken)
+        // Log a custom event
+        logFirebaseEvent("user_subscribe", {
+            channel: channelName,
+            action: "subscribe",
+            timestamp: Date.now(),
+        });
+        
+        console.log("Subscription event logged");
     }
 
 
@@ -282,7 +290,7 @@ export default function ChannelsScreen() {
                                         </Pressable>
                                     ) : (
                                         <Pressable
-                                            onPress={() => subscripeChannel(item.id, expoPushToken)}
+                                            onPress={() => subscripeChannel(item.id, expoPushToken, item.data.channelName)}
                                             style={{
                                                 flex: 1,
                                                 justifyContent: "center",

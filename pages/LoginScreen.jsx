@@ -1,53 +1,58 @@
 import React, { useState } from "react";
 import { View, TextInput, Button, Text, StyleSheet, Pressable, Alert } from "react-native";
 import { logout, signIn, signUp } from "../auth/authenticate";
+import { logFirebaseEvent, login } from "../db/config";
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
 
-    const userLogin = async (email, password) =>
-    {
+    const userLogin = async (email, password) => {
 
         if (email === "" || password === "") {
             Alert.alert("Error", "Please fill in all fields");
         }
         else {
+            
+            const isUser = await signIn(email, password)
 
-            try {
-                await signIn(email, password)
-                Alert.alert("Login Successfully!");
+            if (isUser) {
+                Alert.alert("Login Succefully!");
+                login();
+                console.log("First-time login event logged");
                 navigation.navigate("Home");
-            } catch (error) {
-                Alert.alert("Error while signing in");
+                console.log(response);
             }
-    
+            else {
+                Alert.alert("Error while login please check your data");
+            }
+
         }
     }
 
     return (
         <View style={styles.container}>
 
-            <View style={{justifyContent: "center", alignItems: "center", marginTop: 20, marginBottom: 40}}>
-                <Text style={{textAlign: "center", fontSize: 30, fontWeight: "bold"}}>
+            <View style={{ justifyContent: "center", alignItems: "center", marginTop: 20, marginBottom: 40 }}>
+                <Text style={{ textAlign: "center", fontSize: 30, fontWeight: "bold" }}>
                     Login
                 </Text>
             </View>
 
-            <View style={{width: '90%'}}>
+            <View style={{ width: '90%' }}>
                 <Text>Email:</Text>
                 <TextInput
                     value={email}
                     onChangeText={setEmail}
-                    
+
                     style={{ borderBottomWidth: 1, marginBottom: 10 }}
                 />
                 <Text>Password:</Text>
                 <TextInput
                     value={password}
                     onChangeText={setPassword}
-                    
+
                     secureTextEntry
                     style={{ borderBottomWidth: 1, marginBottom: 10 }}
                 />
@@ -55,8 +60,8 @@ const LoginScreen = ({navigation}) => {
 
 
             <View style={styles.btn}>
-                <Pressable  style={styles.button}   onPress={() => userLogin(email, password)}>
-                    <Text style={{textAlign: 'center'}}>
+                <Pressable style={styles.button} onPress={() => userLogin(email, password)}>
+                    <Text style={{ textAlign: 'center' }}>
                         Log In
                     </Text>
                 </Pressable>

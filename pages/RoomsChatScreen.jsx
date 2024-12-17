@@ -6,6 +6,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import * as Device from 'expo-device';
 import { arrayRemove, collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { db } from '../db/config';
+import { logFirebaseEvent } from "../db/config";
 
 
 
@@ -101,7 +102,7 @@ export default function RoomsChatScreen({navigation}) {
         navigation.navigate('ChatScreen', { channelId, senderId: userToken, channelNameUser: Chn });
     };
 
-    const unSubscripeUser = async (channelId, tokenToRemove) => {
+    const unSubscripeUser = async (channelId, tokenToRemove, channelName) => {
         try {
             // Reference to the document that contains the tokens array
             const channelDocRef = doc(db, 'channels', channelId);
@@ -114,6 +115,12 @@ export default function RoomsChatScreen({navigation}) {
             fetchUserChannels(tokenToRemove)
     
             console.log(`Token ${tokenToRemove} successfully removed from channel ${channelId}`);
+            logFirebaseEvent("user_unsubscribe", {
+                channel: channelName,
+                action: "unsubscribe",
+                timestamp: Date.now(),
+            });
+            console.log("Unsubscribe event logged");
         } catch (error) {
             console.error('Error removing token from Firestore:', error);
         }
@@ -139,7 +146,7 @@ export default function RoomsChatScreen({navigation}) {
                                     <Text style={styels.channelText}>{item.channelName}</Text>
                                 </Pressable>
 
-                                <Pressable onPress={() => unSubscripeUser(item.id, userToken)} style={{ margin: 20, justifyContent: 'center', alignItems: 'center' }}>
+                                <Pressable onPress={() => unSubscripeUser(item.id, userToken, item.channelName)} style={{ margin: 20, justifyContent: 'center', alignItems: 'center' }}>
                                     <Text style={{ backgroundColor: "black", color: 'white', padding: 10, borderRadius: 10 }}>Unsubscripe</Text>
                                     <FontAwesome name="minus" size={24} color="black" />
                                 </Pressable>
@@ -176,7 +183,7 @@ const styels = StyleSheet.create({
     channelContainer: {
         flexDirection: 'column',
         justifyContent: 'space-between',
-        // flex: 1,
+        // flex: 1, 
         gap: 50,
         width: '100%',
         marginHorizontal: 10,

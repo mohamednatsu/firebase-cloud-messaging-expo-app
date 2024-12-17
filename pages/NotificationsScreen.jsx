@@ -77,7 +77,7 @@ export default function NotificationsScreen({ navigation }) {
             console.log(err);
         })
     }
-
+    
 
     useEffect(() => {
         registerForPushNotificationsAsync()
