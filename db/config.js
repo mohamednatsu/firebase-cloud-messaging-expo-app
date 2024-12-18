@@ -30,6 +30,9 @@ export const logFirebaseEvent = (eventName, eventParams) => {
     analytics().logLogin({
         method: "emailAndPassword",
     })
+
+
+    console.log("Login Event")
     
 };
 
