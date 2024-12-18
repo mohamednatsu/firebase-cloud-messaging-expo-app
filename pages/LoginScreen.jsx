@@ -7,7 +7,6 @@ const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-
     const userLogin = async (email, password) => {
 
         if (email === "" || password === "") {

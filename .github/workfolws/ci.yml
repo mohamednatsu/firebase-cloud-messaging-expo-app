@@ -1,0 +1,40 @@
+name: React Native CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build app for Android
+        run: npm run android:build
+
+      - name: Build app for iOS
+        run: npm run ios:build
+      
+
+
+
+      - name: Distribute to Firebase App Distribution (Android)
+        run: |
+          firebase appdistribution:distribute build/app-release.apk --app 1:733382906897:web:d18de7aa53225b38958db0 --groups "Testers"
+        env:
+          FIREBASE_AUTH_TOKEN: ${{ secrets.FIREBASE_AUTH_TOKEN }}
