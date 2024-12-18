@@ -31,8 +31,6 @@ jobs:
         run: npm run ios:build
       
 
-
-
       - name: Distribute to Firebase App Distribution (Android)
         run: |
           firebase appdistribution:distribute build/app-release.apk --app 1:733382906897:web:d18de7aa53225b38958db0 --groups "Testers"
