@@ -4,7 +4,7 @@ import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
 import { getAuth, signInWithPhoneNumber, PhoneAuthProvider, signInWithCredential } from "firebase/auth";
 import { auth } from "../db/config"; // Firebase configuration
 
-export default function PhoneScreen() {
+export default function PhoneScreen({navigation}) {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [verificationId, setVerificationId] = useState(null);
     const [verificationCode, setVerificationCode] = useState("");
@@ -34,6 +34,7 @@ export default function PhoneScreen() {
             await signInWithCredential(auth, credential);
 
             Alert.alert("Success", "Phone authentication successful!");
+            navigation.navigate('Home')
         } catch (error) {
             console.error("Error verifying OTP:", error.message);
             Alert.alert("Error", error.message);
