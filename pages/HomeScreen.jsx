@@ -1,8 +1,25 @@
 import { useState, useEffect, useRef } from 'react';
 import { Text, View, FlatList, Platform, Button, StyleSheet, Pressable } from 'react-native';
+import * as Notifications from 'expo-notifications';
+import { userEvent } from '../db/config';
 
 
 export default function HomeScreen({ navigation }) {
+
+    async function sendWelcomeNotification() {
+        await Notifications.scheduleNotificationAsync({
+            content: {
+                title: "Welcome to Our App!",
+                body: "Thanks for joining us!",
+            },
+            trigger: null, // Send immediately
+        });
+    }
+
+    useEffect(() => {
+        sendWelcomeNotification();
+    }, [])
+
     return (
 
         <View style={styles.container}>

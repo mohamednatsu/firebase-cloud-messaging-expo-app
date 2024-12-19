@@ -5,7 +5,7 @@ import { arrayRemove, arrayUnion, collection, deleteDoc, doc, getDoc, getDocs, u
 import { Ionicons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import * as Notifications from 'expo-notifications';
-import { logFirebaseEvent } from "../db/config";
+import { userEvent } from "../db/config";
 
 import * as Device from 'expo-device';
 
@@ -122,11 +122,10 @@ export default function ChannelsScreen() {
     const subscripeChannel = (channelId, userToken, channelName) => {
         Alert.alert("Subscripe channel")
         addUserTokenToChannel(channelId, userToken)
-        // Log a custom event
-        logFirebaseEvent("user_subscribe", {
-            channel: channelName,
-            action: "subscribe",
-            timestamp: Date.now(),
+        userEvent('user_subscription', {
+            user_id: userToken,
+            channel_id: channelId,
+            subscription_status: 'subscribed',
         });
         
         console.log("Subscription event logged");

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, TextInput, Button, Text, StyleSheet, Pressable, Alert } from "react-native";
 import { logout, signIn, signUp } from "../auth/authenticate";
-import { logFirebaseEvent, login } from "../db/config";
+import { logFirebaseEvent, login, userEvent } from "../db/config";
 
 const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
@@ -13,13 +13,13 @@ const LoginScreen = ({ navigation }) => {
             Alert.alert("Error", "Please fill in all fields");
         }
         else {
-            
             const isUser = await signIn(email, password)
-
             if (isUser) {
                 Alert.alert("Login Succefully!");
-                login();
-                console.log("First-time login event logged");
+                userEvent('first_time_login', {
+                    user_email: email,
+                });
+
                 navigation.navigate("Home");
                 console.log(response);
             }

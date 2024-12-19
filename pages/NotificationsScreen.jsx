@@ -77,6 +77,11 @@ export default function NotificationsScreen({ navigation }) {
             console.log(err);
         })
     }
+
+    userEvent('reminder_notification', {
+        user_id: expoPushToken,
+        message: 'Don’t miss the latest update!',
+    });
     
 
     useEffect(() => {
